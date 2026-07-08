@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Sign in — Ledger{% endblock %}
+{% block content %}
+<div class="auth-shell" data-testid="login-page">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Ledger<span class="brand-accent">.</span></span>
+    </div>
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-sub">Sign in to keep tracking every dollar.</p>
+
+    <form method="POST" class="stack" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required autofocus data-testid="login-email" placeholder="you@example.com" />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" required data-testid="login-password" placeholder="••••••••" />
+      </label>
+      <button type="submit" class="btn primary" data-testid="login-submit">
+        Sign in <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <p class="auth-alt">
+      New here?
+      <a href="{{ url_for('signup') }}" data-testid="link-signup">Create an account</a>
+    </p>
+    <div class="demo-hint" data-testid="demo-hint">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      Try demo: <strong>demo@demo.com</strong> / <strong>demo123</strong>
+    </div>
+  </div>
+  <aside class="auth-quote">
+    <div class="grain"></div>
+    <div class="quote-body">
+      <span class="tag">Personal finance, unfiltered</span>
+      <h2>Every rupee<br/>tells a story.</h2>
+      <p>A tidy monthly ledger. Zero fluff. Just clarity.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

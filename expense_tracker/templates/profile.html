@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Profile — Ledger{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Account</span>
+    <h1 data-testid="page-title">Profile</h1>
+    <p class="page-sub">Update your name, email, or password.</p>
+  </div>
+</header>
+
+<div class="panel form-panel narrow">
+  <form method="POST" class="form-grid" data-testid="profile-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    <label class="field span-2">
+      <span>Full name</span>
+      <input type="text" name="name" value="{{ user.name }}" required data-testid="profile-name" />
+    </label>
+
+    <label class="field span-2">
+      <span>Email</span>
+      <input type="email" name="email" value="{{ user.email }}" required data-testid="profile-email" />
+    </label>
+
+    <label class="field span-2">
+      <span>New password <em>(leave blank to keep current)</em></span>
+      <input type="password" name="password" minlength="6" data-testid="profile-password" placeholder="min 6 characters" />
+    </label>
+
+    <div class="form-actions span-2">
+      <button type="submit" class="btn primary" data-testid="profile-save">Save changes</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

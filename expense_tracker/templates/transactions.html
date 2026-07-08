@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Transactions — Ledger{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <span class="eyebrow">All movements</span>
+    <h1 data-testid="page-title">Transactions</h1>
+    <p class="page-sub">Search, filter, edit, or export your history.</p>
+  </div>
+  <div class="head-actions">
+    <a href="{{ url_for('export_csv') }}" class="btn ghost" data-testid="export-csv">
+      <i class="fa-solid fa-file-arrow-down"></i> Export CSV
+    </a>
+    <a href="{{ url_for('new_transaction') }}" class="btn primary" data-testid="add-tx-btn">
+      <i class="fa-solid fa-plus"></i> Add
+    </a>
+  </div>
+</header>
+
+<form method="GET" class="filter-bar" data-testid="filter-bar">
+  <div class="search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" name="q" value="{{ q }}" placeholder="Search description..." data-testid="filter-search" />
+  </div>
+  <select name="category" data-testid="filter-category">
+    <option value="">All categories</option>
+    {% for c in categories %}
+      <option value="{{ c }}" {% if cat == c %}selected{% endif %}>{{ c }}</option>
+    {% endfor %}
+  </select>
+  <select name="type" data-testid="filter-type">
+    <option value="">All types</option>
+    <option value="income" {% if ttype == 'income' %}selected{% endif %}>Income</option>
+    <option value="expense" {% if ttype == 'expense' %}selected{% endif %}>Expense</option>
+  </select>
+  <button type="submit" class="btn primary" data-testid="filter-apply">Apply</button>
+  <a href="{{ url_for('transactions') }}" class="btn ghost" data-testid="filter-clear">Clear</a>
+</form>
+
+<div class="panel table-panel">
+  {% if transactions %}
+  <div class="table-wrap">
+    <table class="tx-table" data-testid="tx-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th class="num">Income</th>
+          <th class="num">Expense</th>
+          <th class="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in transactions %}
+        <tr data-testid="tx-row-{{ t.id }}">
+          <td class="mono">{{ t.date.strftime('%Y-%m-%d') }}</td>
+          <td><span class="chip">{{ t.category }}</span></td>
+          <td class="desc">{{ t.description or '—' }}</td>
+          <td class="num mono in-color">
+            {% if t.type == 'income' %}${{ '%.2f'|format(t.amount) }}{% else %}—{% endif %}
+          </td>
+          <td class="num mono out-color">
+            {% if t.type == 'expense' %}${{ '%.2f'|format(t.amount) }}{% else %}—{% endif %}
+          </td>
+          <td class="actions">
+            <a href="{{ url_for('edit_transaction', tx_id=t.id) }}" class="icon-btn" title="Edit" data-testid="edit-tx-{{ t.id }}">
+              <i class="fa-solid fa-pen"></i>
+            </a>
+            <form method="POST" action="{{ url_for('delete_transaction', tx_id=t.id) }}" onsubmit="return confirm('Delete this transaction?');" class="inline">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+              <button type="submit" class="icon-btn danger" title="Delete" data-testid="delete-tx-{{ t.id }}">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if pagination.pages > 1 %}
+  <nav class="pager" data-testid="pagination">
+    {% set base_args = {'q': q, 'category': cat, 'type': ttype} %}
+    {% if pagination.has_prev %}
+      <a class="pg-btn" href="{{ url_for('transactions', page=pagination.prev_num, **base_args) }}" data-testid="pg-prev">
+        <i class="fa-solid fa-chevron-left"></i> Prev
+      </a>
+    {% else %}<span class="pg-btn disabled"><i class="fa-solid fa-chevron-left"></i> Prev</span>{% endif %}
+    <span class="pg-info">Page {{ pagination.page }} / {{ pagination.pages }}</span>
+    {% if pagination.has_next %}
+      <a class="pg-btn" href="{{ url_for('transactions', page=pagination.next_num, **base_args) }}" data-testid="pg-next">
+        Next <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    {% else %}<span class="pg-btn disabled">Next <i class="fa-solid fa-chevron-right"></i></span>{% endif %}
+  </nav>
+  {% endif %}
+  {% else %}
+  <div class="empty-state" data-testid="empty-transactions">
+    <i class="fa-solid fa-inbox"></i>
+    <h3>Nothing here yet</h3>
+    <p>Add your first transaction to see it here.</p>
+    <a href="{{ url_for('new_transaction') }}" class="btn primary">Add transaction</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

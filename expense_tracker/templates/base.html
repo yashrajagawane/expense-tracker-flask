@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Expense Tracker{% endblock %}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script>
+    // Apply saved theme before paint to avoid flash
+    (function() {
+      const t = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+  {% if current_user.is_authenticated %}
+  <aside class="sidebar" data-testid="sidebar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Ledger<span class="brand-accent">.</span></span>
+    </div>
+    <nav>
+      <a href="{{ url_for('dashboard') }}" data-testid="nav-dashboard" class="{% if request.endpoint == 'dashboard' %}active{% endif %}"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+      <a href="{{ url_for('transactions') }}" data-testid="nav-transactions" class="{% if request.endpoint in ['transactions', 'new_transaction', 'edit_transaction'] %}active{% endif %}"><i class="fa-solid fa-list-ul"></i><span>Transactions</span></a>
+      <a href="{{ url_for('reports') }}" data-testid="nav-reports" class="{% if request.endpoint == 'reports' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i><span>Reports</span></a>
+      <a href="{{ url_for('budget') }}" data-testid="nav-budget" class="{% if request.endpoint == 'budget' %}active{% endif %}"><i class="fa-solid fa-wallet"></i><span>Budget</span></a>
+      <a href="{{ url_for('profile') }}" data-testid="nav-profile" class="{% if request.endpoint == 'profile' %}active{% endif %}"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <button id="theme-toggle" class="ghost-btn" data-testid="theme-toggle" title="Toggle theme">
+        <i class="fa-solid fa-moon"></i><span class="tt-label">Dark</span>
+      </button>
+      <a href="{{ url_for('logout') }}" class="ghost-btn danger" data-testid="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+  {% endif %}
+
+  <main class="main {% if not current_user.is_authenticated %}auth-main{% endif %}">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap" data-testid="flash-container">
+        {% for cat, msg in messages %}
+          <div class="flash flash-{{ cat }}" data-testid="flash-{{ cat }}">
+            <i class="fa-solid {% if cat == 'success' %}fa-circle-check{% elif cat == 'error' %}fa-triangle-exclamation{% else %}fa-circle-info{% endif %}"></i>
+            <span>{{ msg }}</span>
+          </div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

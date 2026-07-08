@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ heading }} — Ledger{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Transactions</span>
+    <h1 data-testid="page-title">{{ heading }}</h1>
+    <p class="page-sub">Every entry helps you understand your money better.</p>
+  </div>
+  <a href="{{ url_for('transactions') }}" class="btn ghost" data-testid="cancel-btn">
+    <i class="fa-solid fa-arrow-left"></i> Back
+  </a>
+</header>
+
+<div class="panel form-panel">
+  <form method="POST" action="{{ form_action }}" class="form-grid" data-testid="tx-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    <div class="type-toggle" data-testid="type-toggle">
+      <input type="radio" id="type-income" name="type" value="income"
+             {% if not tx or tx.type == 'income' %}{% if tx and tx.type == 'income' %}checked{% endif %}{% endif %}
+             {% if not tx %}checked{% endif %} />
+      <label for="type-income" class="tt-opt in" data-testid="type-income">
+        <i class="fa-solid fa-arrow-down"></i> Income
+      </label>
+
+      <input type="radio" id="type-expense" name="type" value="expense"
+             {% if tx and tx.type == 'expense' %}checked{% endif %} />
+      <label for="type-expense" class="tt-opt out" data-testid="type-expense">
+        <i class="fa-solid fa-arrow-up"></i> Expense
+      </label>
+    </div>
+
+    <label class="field span-2">
+      <span>Amount</span>
+      <div class="input-prefix">
+        <span class="prefix">$</span>
+        <input type="number" name="amount" step="0.01" min="0.01" required
+               value="{{ tx.amount if tx else '' }}" data-testid="tx-amount" placeholder="0.00" />
+      </div>
+    </label>
+
+    <label class="field">
+      <span>Category</span>
+      <select name="category" required data-testid="tx-category">
+        {% for c in categories %}
+          <option value="{{ c }}" {% if tx and tx.category == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Date</span>
+      <input type="date" name="date" required
+             value="{{ tx.date.strftime('%Y-%m-%d') if tx else '' }}" data-testid="tx-date" />
+    </label>
+
+    <label class="field span-2">
+      <span>Description</span>
+      <input type="text" name="description" maxlength="255"
+             value="{{ tx.description if tx else '' }}" data-testid="tx-description" placeholder="e.g. Coffee with Sarah" />
+    </label>
+
+    <div class="form-actions span-2">
+      <a href="{{ url_for('transactions') }}" class="btn ghost">Cancel</a>
+      <button type="submit" class="btn primary" data-testid="tx-submit">
+        {% if tx %}Update{% else %}Save{% endif %} <i class="fa-solid fa-check"></i>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Fill today's date if empty
+  (function(){
+    const d = document.querySelector('[data-testid="tx-date"]');
+    if (d && !d.value) d.valueAsDate = new Date();
+  })();
+</script>
+{% endblock %}

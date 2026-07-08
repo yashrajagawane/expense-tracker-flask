@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Create account — Ledger{% endblock %}
+{% block content %}
+<div class="auth-shell" data-testid="signup-page">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Ledger<span class="brand-accent">.</span></span>
+    </div>
+    <h1 class="auth-title">Create your ledger</h1>
+    <p class="auth-sub">Track income, expenses, and budgets in one place.</p>
+
+    <form method="POST" class="stack" novalidate>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <label class="field">
+        <span>Full name</span>
+        <input type="text" name="name" required data-testid="signup-name" placeholder="Ada Lovelace" />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required data-testid="signup-email" placeholder="you@example.com" />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" name="password" required minlength="6" data-testid="signup-password" placeholder="min 6 characters" />
+      </label>
+      <button type="submit" class="btn primary" data-testid="signup-submit">
+        Create account <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <p class="auth-alt">
+      Already have an account?
+      <a href="{{ url_for('login') }}" data-testid="link-login">Sign in</a>
+    </p>
+  </div>
+  <aside class="auth-quote">
+    <div class="grain"></div>
+    <div class="quote-body">
+      <span class="tag">Onboarding · 30 seconds</span>
+      <h2>Build the habit,<br/>build the wealth.</h2>
+      <p>Sign up now — start categorising your first expense in under a minute.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

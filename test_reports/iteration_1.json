@@ -1,0 +1,30 @@
+{
+  "summary": "First-finish smoke test for Flask Expense Tracker (server-rendered, all routes under /api). Backend health, CSRF, auth guard, demo login, dashboard stats, transactions CRUD, filters, reports charts, budget save, dark mode, logout and CSV export all verified end-to-end via curl + Playwright against the public preview URL.",
+  "tested_scope": ["backend", "frontend", "auth", "integration"],
+  "passed": [
+    "GET /api/health -> 200 {status: ok}",
+    "GET /api/login renders form with CSRF token",
+    "GET /api/dashboard without session -> 302 to /api/login?next=/api/dashboard (auth guard)",
+    "Login with demo@demo.com / demo123 succeeds and redirects to /api/dashboard",
+    "Invalid credentials show 'Invalid credentials.' flash message",
+    "Dashboard stat cards match spec exactly: income=$3000.00, expense=$540.00, balance=$2460.00, count=8",
+    "Dashboard budget block shows Budget=$1500 / Spent=$540 / Remaining=$960 with progress bar",
+    "Transactions page renders 8 rows (tx-row-* testids) with all columns",
+    "Search filter 'Pharmacy' narrows to 1 matching row",
+    "Clear filters resets back to 8 rows",
+    "Add transaction (amount=42.50, category=Food, type=expense) creates new row visible on list",
+    "Reports page: monthlyChart and categoryChart canvases both rendered (width>0)",
+    "Budget page: setting amount=1500 saves and progress bar renders",
+    "Theme toggle flips data-theme light->dark and persists in localStorage",
+    "Logout redirects to /api/login and subsequent /api/dashboard requires login",
+    "CSV export returns text/csv with header 'Date,Type,Category,Description,Amount'"
+  ],
+  "failed": [],
+  "action_items": [
+    "Optional: populate /app/memory/test_credentials.md with the demo user (demo@demo.com / demo123) so future testers don't have to rely on the review request."
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "Did not exhaustively test: signup, edit/delete transaction, category/type dropdown filters, profile update + password change re-login, pagination beyond 10 rows, and mobile responsive breakpoint. Core happy path is solid; these can be covered by full testing agent post first-finish."
+}

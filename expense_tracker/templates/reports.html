@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Reports — Ledger{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <span class="eyebrow">Insights</span>
+    <h1 data-testid="page-title">Reports</h1>
+    <p class="page-sub">Six months of trends and category breakdown.</p>
+  </div>
+</header>
+
+<section class="grid-2">
+  <div class="panel">
+    <div class="panel-head"><h2>Income vs Expense · last 6 months</h2></div>
+    <div class="chart-wrap">
+      <canvas id="monthlyChart" data-testid="chart-monthly"></canvas>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h2>Expenses by category</h2></div>
+    <div class="chart-wrap">
+      <canvas id="categoryChart" data-testid="chart-category"></canvas>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  const monthlyLabels = {{ monthly_labels|tojson }};
+  const monthlyIncome = {{ monthly_income|tojson }};
+  const monthlyExpense = {{ monthly_expense|tojson }};
+  const catLabels = {{ cat_labels|tojson }};
+  const catValues = {{ cat_values|tojson }};
+
+  function css(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  let monthlyChart, categoryChart;
+  const palette = ['#4ade80','#fb7185','#fbbf24','#60a5fa','#a78bfa','#f472b6','#34d399','#fb923c','#22d3ee','#facc15','#c084fc','#f87171','#94a3b8'];
+
+  function renderCharts() {
+    const grid = css('--border');
+    const text = css('--fg');
+    Chart.defaults.color = text;
+    Chart.defaults.borderColor = grid;
+    Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+
+    if (monthlyChart) monthlyChart.destroy();
+    if (categoryChart) categoryChart.destroy();
+
+    monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+      type: 'bar',
+      data: {
+        labels: monthlyLabels,
+        datasets: [
+          { label: 'Income',  data: monthlyIncome,  backgroundColor: css('--accent-in'),  borderRadius: 6 },
+          { label: 'Expense', data: monthlyExpense, backgroundColor: css('--accent-out'), borderRadius: 6 },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true, grid: { color: grid }, ticks: { color: text } }, x: { grid: { display: false }, ticks: { color: text } } },
+        plugins: { legend: { position: 'bottom', labels: { color: text } } },
+      }
+    });
+
+    categoryChart = new Chart(document.getElementById('categoryChart'), {
+      type: 'doughnut',
+      data: {
+        labels: catLabels,
+        datasets: [{
+          data: catValues,
+          backgroundColor: catLabels.map((_,i)=>palette[i % palette.length]),
+          borderWidth: 2, borderColor: css('--bg'),
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '62%',
+        plugins: { legend: { position: 'right', labels: { color: text } } },
+      }
+    });
+  }
+
+  renderCharts();
+
+  // Re-render on theme toggle
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) themeBtn.addEventListener('click', () => setTimeout(renderCharts, 60));
+</script>
+{% endblock %}
