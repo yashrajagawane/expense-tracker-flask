@@ -1,293 +1,222 @@
-# 💸 Ledger – Personal Expense Tracker
+# 💸 Ledger — Personal Expense Tracker
 
-<p align="center">
-  <h3 align="center">A Modern Full-Stack Personal Finance Management Web Application</h3>
-  <p align="center">
-    Built with Flask, SQLAlchemy, SQLite, Chart.js, HTML, CSS & JavaScript
-  </p>
-</p>
+A full-stack personal finance app built with **Flask + SQLite + SQLAlchemy**, with a server-rendered UI (Jinja2 + vanilla JS + Chart.js). Track income and expenses, set monthly budgets, visualize spending, and export to CSV — all in a clean, responsive dashboard with dark/light themes.
 
-<p align="center">
-  <a href="https://expense-tracker-flask-zvxu.onrender.com">
-    <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Website-28a745?style=for-the-badge">
-  </a>
-  <a href="https://github.com/<YOUR_GITHUB_USERNAME>/expense-tracker-flask">
-    <img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github">
-  </a>
-</p>
+> All amounts are displayed in **Indian Rupees (₹)**.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-blue?logo=python">
-  <img src="https://img.shields.io/badge/Flask-3.0-black?logo=flask">
-  <img src="https://img.shields.io/badge/SQLite-Database-blue?logo=sqlite">
-  <img src="https://img.shields.io/badge/SQLAlchemy-ORM-red">
-  <img src="https://img.shields.io/badge/Chart.js-Visualization-ff6384">
-  <img src="https://img.shields.io/badge/Responsive-Yes-success">
-</p>
+🔗 **Live Demo:** [https://your-deployed-url-here.com](https://your-deployed-url-here.com) <!-- Replace with your actual deployment URL -->
+
+**Demo login:** `demo@demo.com` / `demo123`
 
 ---
 
-# 🌐 Live Demo
+## Screenshots
 
-### 🚀 https://expense-tracker-flask-zvxu.onrender.com
-
-### Demo Account
-
-**Email**
-
-```
-demo@demo.com
-```
-
-**Password**
-
-```
-demo123
-```
+<!-- Add screenshots or a GIF here, e.g.:
+![Dashboard](docs/screenshots/dashboard.png)
+![Reports](docs/screenshots/reports.png)
+-->
 
 ---
 
-# 📸 Application Preview
+## Features
 
-> Replace these images with your own screenshots after uploading them to the repository.
-
-## Login Page
-
-![Login](screenshots/login.png)
-
----
-
-## Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
----
-
-## Transactions
-
-![Transactions](screenshots/transactions.png)
+- **Authentication** — Signup/login/logout, passwords hashed with `pbkdf2:sha256`, server-side sessions via Flask-Login
+- **Dashboard** — Income, expenses, balance, transaction count, budget progress, recent activity
+- **Transactions** — Full CRUD, 13 categories, income/expense type, amount, date, description
+- **History** — Searchable, filterable (category + type), paginated table
+- **Reports** — Chart.js: Income vs Expense (6-month bar chart), Expenses by Category (doughnut chart)
+- **Budget** — Monthly cap with color-coded progress (green → amber → red)
+- **Profile** — Update name, email, password
+- **CSV Export** — One-click download of all transactions
+- **Theme** — Persistent dark/light toggle
+- **Security** — CSRF protection (Flask-WTF), server-side validation, HttpOnly cookies, `SameSite=Lax`
 
 ---
 
-## Reports
+## Tech Stack
 
-![Reports](screenshots/reports.png)
-
----
-
-# ✨ Features
-
-### 🔐 Authentication
-
-- User Registration
-- Secure Login & Logout
-- Password Hashing
-- Session Management
-
-### 💰 Expense Management
-
-- Add Income
-- Add Expenses
-- Edit Transactions
-- Delete Transactions
-- Transaction History
-
-### 📊 Dashboard
-
-- Total Income
-- Total Expenses
-- Current Balance
-- Recent Transactions
-- Monthly Budget Status
-
-### 📈 Reports & Analytics
-
-- Monthly Income vs Expense Chart
-- Expense Category Breakdown
-- Interactive Charts using Chart.js
-
-### 🎯 Budget Planner
-
-- Set Monthly Budget
-- Budget Progress
-- Remaining Balance
-- Spending Alerts
-
-### 🔎 Search & Filters
-
-- Search Transactions
-- Filter by Category
-- Filter by Transaction Type
-
-### 📤 Export
-
-- Export Transaction History to CSV
-
-### 🎨 User Experience
-
-- Dark Mode
-- Light Mode
-- Responsive Design
-- Sidebar Navigation
-- Beautiful Dashboard
-- Mobile Friendly
+| Layer      | Technology                                                     |
+| ---------- | ---------------------------------------------------------------|
+| Language   | Python 3.11+                                                   |
+| Web        | Flask 3.0                                                      |
+| Auth       | Flask-Login + Werkzeug                                         |
+| ORM        | Flask-SQLAlchemy (SQLAlchemy 2.x)                               |
+| Database   | SQLite                                                          |
+| Forms/CSRF | Flask-WTF + WTForms                                             |
+| Frontend   | Jinja2 + vanilla JS + Chart.js 4 (CDN) + Font Awesome 6 (CDN)  |
+| Fonts      | Bricolage Grotesque, Inter, JetBrains Mono                      |
 
 ---
 
-# 🛠️ Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| Backend | Flask |
-| Language | Python |
-| Database | SQLite |
-| ORM | SQLAlchemy |
-| Authentication | Flask-Login |
-| Forms | Flask-WTF |
-| Frontend | HTML5 |
-| Styling | CSS3 |
-| JavaScript | Vanilla JavaScript |
-| Charts | Chart.js |
-| Icons | Font Awesome |
-| Deployment | Render |
-| Version Control | Git & GitHub |
-
----
-
-# 📂 Project Structure
-
-```
-expense_tracker/
-│
-├── app.py
-├── config.py
-├── models.py
-├── requirements.txt
-├── README.md
-│
-├── templates/
-│
-├── static/
-│   ├── css/
-│   └── js/
-│
-└── instance/
-```
-
----
-
-# 🚀 Getting Started
-
-## 1️⃣ Clone Repository
+## Quick Start
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/expense-tracker-flask.git
-```
+git clone https://github.com/your-username/ledger.git
+cd ledger
 
----
+python -m venv .venv
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 
-## 2️⃣ Navigate to Project
-
-```bash
-cd expense-tracker-flask/expense_tracker
-```
-
----
-
-## 3️⃣ Create Virtual Environment
-
-### Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-### macOS/Linux
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
----
-
-## 4️⃣ Install Dependencies
-
-```bash
 pip install -r requirements.txt
-```
-
----
-
-## 5️⃣ Run the Application
-
-```bash
 python app.py
 ```
 
-Open:
+Open **http://127.0.0.1:5000**. The SQLite database and demo user are auto-created on first run — no migrations needed.
+
+---
+
+## Project Structure
 
 ```
-http://127.0.0.1:5000
+expense_tracker/
+├── app.py                    # Flask app, routes, demo seed
+├── models.py                 # User, Transaction, Budget
+├── config.py                 # SECRET_KEY, DB URI, CSRF, prefix
+├── requirements.txt
+├── templates/
+│   ├── base.html
+│   ├── login.html / signup.html
+│   ├── dashboard.html
+│   ├── transactions.html
+│   ├── transaction_form.html
+│   ├── reports.html
+│   ├── budget.html
+│   └── profile.html
+├── static/
+│   ├── css/style.css
+│   └── js/main.js
+└── instance/
+    └── expense_tracker.db    # auto-created
 ```
 
 ---
 
-# 📋 Available Features
+## Routes
 
-- ✅ User Authentication
-- ✅ Dashboard
-- ✅ Expense Management
-- ✅ Income Management
-- ✅ Budget Tracking
-- ✅ Reports & Analytics
-- ✅ CSV Export
-- ✅ Search & Filters
-- ✅ Dark Mode
-- ✅ Responsive Design
-
----
-
-# 🔒 Security
-
-- Password Hashing
-- CSRF Protection
-- Flask Session Management
-- Server-side Validation
-- Secure Authentication
+| Path                         | Method    | Description                          |
+| ---------------------------- | --------- | ------------------------------------- |
+| `/`                          | GET       | Redirects to dashboard or login       |
+| `/signup`                    | GET, POST | Create account                        |
+| `/login`                     | GET, POST | Log in                                |
+| `/logout`                    | GET       | Log out                               |
+| `/dashboard`                 | GET       | Overview cards + recent activity      |
+| `/transactions`              | GET       | Paginated table, search & filters     |
+| `/transactions/new`          | GET, POST | Add transaction                       |
+| `/transactions/<id>/edit`    | GET, POST | Edit transaction                      |
+| `/transactions/<id>/delete`  | POST      | Delete transaction (CSRF-guarded)     |
+| `/reports`                   | GET       | Chart.js visualizations               |
+| `/budget`                    | GET, POST | View/set current month's budget       |
+| `/profile`                   | GET, POST | Update name/email/password            |
+| `/export.csv`                | GET       | Download all transactions as CSV      |
+| `/health`                    | GET       | JSON health check                     |
 
 ---
 
-# 🌟 Future Improvements
+## Database Schema
 
-- PostgreSQL Database
-- Recurring Transactions
-- Email Notifications
-- Multi-Currency Support
-- CSV Import
-- REST API
-- Progressive Web App (PWA)
-- AI-powered Spending Insights
+**User** — `id`, `name`, `email` (unique), `password_hash`, `created_at`
 
----
+**Transaction** — `id`, `user_id` (FK), `amount`, `category` (1 of 13), `date`, `description`, `type` (`income`/`expense`), `created_at`
 
-# 👨‍💻 Developer
+**Budget** — `id`, `user_id` (FK), `year`, `month`, `amount` — unique on (`user_id`, `year`, `month`)
 
-**Yashraj Vilas Agawane**
-
-- GitHub: https://github.com/<YOUR_GITHUB_USERNAME>
+All tables cascade-delete with their parent `User`.
 
 ---
 
-# ⭐ Support
+## Configuration
 
-If you found this project helpful, consider giving it a ⭐ on GitHub.
+Set via environment variables — no code changes needed for prod:
 
-It helps others discover the project and motivates future improvements.
+| Env var        | Default                                 | Purpose                             |
+| -------------- | ---------------------------------------- | ------------------------------------ |
+| `SECRET_KEY`   | `dev-secret-change-me-in-prod`          | Signs sessions & CSRF tokens         |
+| `DATABASE_URL` | `sqlite:///instance/expense_tracker.db` | DB URI (Postgres/MySQL compatible)  |
+| `URL_PREFIX`   | *(empty)*                                | Mount under a path prefix, e.g. `/api` |
+
+**Production example:**
+
+```bash
+export SECRET_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"
+export DATABASE_URL="postgresql+psycopg://user:pwd@localhost/ledger"
+python app.py
+```
 
 ---
 
-<p align="center">
-  Made with ❤️ using Flask, Python & Chart.js
-</p>
+## Design
+
+- **Palette:** cream (`#f5f2eb`), charcoal (`#0e1116`), lime accent (`#c8f45c`)
+- **Semantic:** emerald for income (`#4ade80`), coral for expense (`#fb7185`), amber for budget warnings
+- **Type:** Bricolage Grotesque (headings), Inter (body), JetBrains Mono (numbers)
+- **Dark mode:** true dark surfaces, persisted in `localStorage`
+
+---
+
+## Security
+
+- Passwords hashed with `pbkdf2:sha256`, never stored plain
+- CSRF token on every POST form (Flask-WTF)
+- `@login_required` on all data-mutating/user-specific routes
+- `SESSION_COOKIE_SAMESITE = "Lax"`
+- Server-side validation of amounts, dates, categories, types
+- Always set a strong `SECRET_KEY` and use HTTPS in production
+
+---
+
+## Requirements
+
+```
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+WTForms==3.1.2
+Werkzeug==3.0.3
+```
+
+---
+
+## Roadmap
+
+- [ ] Recurring transactions (rent, salary, subscriptions)
+- [ ] Multi-currency support
+- [ ] CSV import
+- [ ] Shareable read-only monthly summary link
+- [ ] Email alerts on budget thresholds
+- [ ] Date-range filter on transactions page
+- [ ] Per-category budgets
+- [ ] PWA (install-to-home-screen)
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. `git checkout -b feature/awesome-thing`
+3. Follow PEP-8, keep functions small and commented
+4. Add/update tests for new logic
+5. Open a PR
+
+---
+
+## FAQ
+
+**Can I use this for real money tracking?**
+Yes. Just set a strong `SECRET_KEY` and run behind HTTPS.
+
+**How do I reset the database?**
+Delete `instance/expense_tracker.db` and restart — it recreates with a fresh demo user.
+
+**Can I change the currency from ₹?**
+Yes, search templates for `₹` and swap it. A per-user currency setting is planned.
+
+**Why Flask over Django/FastAPI?**
+For a small app with three tables and eight pages, Flask + Jinja renders everything server-side with no build step and no separate frontend — the whole app fits in one readable `app.py`.
+
+---
+
+## License
+
+MIT — do what you want, just don't blame the author if you track your rupees a bit too accurately. 🙃
