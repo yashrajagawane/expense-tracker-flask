@@ -16,19 +16,19 @@
   <div class="stat-card lift-1" data-testid="stat-income">
     <div class="stat-icon in"><i class="fa-solid fa-arrow-down"></i></div>
     <span class="stat-label">Total Income</span>
-    <span class="stat-value mono">${{ '%.2f'|format(totals.income) }}</span>
+    <span class="stat-value mono">₹{{ '%.2f'|format(totals.income) }}</span>
     <span class="stat-foot">Money in</span>
   </div>
   <div class="stat-card lift-2" data-testid="stat-expense">
     <div class="stat-icon out"><i class="fa-solid fa-arrow-up"></i></div>
     <span class="stat-label">Total Expenses</span>
-    <span class="stat-value mono">${{ '%.2f'|format(totals.expense) }}</span>
+    <span class="stat-value mono">₹{{ '%.2f'|format(totals.expense) }}</span>
     <span class="stat-foot">Money out</span>
   </div>
   <div class="stat-card lift-3 highlight" data-testid="stat-balance">
     <div class="stat-icon bal"><i class="fa-solid fa-scale-balanced"></i></div>
     <span class="stat-label">Current Balance</span>
-    <span class="stat-value mono">${{ '%.2f'|format(totals.balance) }}</span>
+    <span class="stat-value mono">₹{{ '%.2f'|format(totals.balance) }}</span>
     <span class="stat-foot">{% if totals.balance >= 0 %}You're in the green{% else %}Watch it{% endif %}</span>
   </div>
   <div class="stat-card lift-4" data-testid="stat-count">
@@ -49,15 +49,15 @@
     <div class="budget-block">
       <div class="budget-row">
         <span>Budget</span>
-        <span class="mono">${{ '%.2f'|format(budget_amount) }}</span>
+        <span class="mono">₹{{ '%.2f'|format(budget_amount) }}</span>
       </div>
       <div class="budget-row">
         <span>Spent</span>
-        <span class="mono spent">${{ '%.2f'|format(month_spent) }}</span>
+        <span class="mono spent">₹{{ '%.2f'|format(month_spent) }}</span>
       </div>
       <div class="budget-row">
         <span>Remaining</span>
-        <span class="mono in-color">${{ '%.2f'|format(budget_remaining) }}</span>
+        <span class="mono in-color">₹{{ '%.2f'|format(budget_remaining) }}</span>
       </div>
       <div class="progress" data-testid="budget-progress">
         <div class="progress-bar {% if budget_used_pct > 100 %}over{% elif budget_used_pct > 80 %}warn{% endif %}"
@@ -85,7 +85,7 @@
           <span class="tx-meta">{{ t.category }} · {{ t.date.strftime('%b %d, %Y') }}</span>
         </div>
         <span class="tx-amt mono {% if t.type == 'income' %}in-color{% else %}out-color{% endif %}">
-          {{ '+' if t.type == 'income' else '−' }}${{ '%.2f'|format(t.amount) }}
+          {{ '+' if t.type == 'income' else '−' }}₹{{ '%.2f'|format(t.amount) }}
         </span>
       </li>
       {% endfor %}

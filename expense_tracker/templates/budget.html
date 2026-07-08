@@ -17,7 +17,7 @@
       <label class="field span-2">
         <span>Monthly budget amount</span>
         <div class="input-prefix">
-          <span class="prefix">$</span>
+          <span class="prefix">₹</span>
           <input type="number" name="amount" step="0.01" min="0" required
                  value="{{ budget_amount or '' }}" data-testid="budget-amount" placeholder="0.00" />
         </div>
@@ -32,16 +32,16 @@
     <div class="panel-head"><h2>Current progress</h2></div>
     {% if budget_amount %}
     <div class="budget-block">
-      <div class="budget-row"><span>Budget</span><span class="mono">${{ '%.2f'|format(budget_amount) }}</span></div>
-      <div class="budget-row"><span>Spent</span><span class="mono spent" data-testid="budget-spent">${{ '%.2f'|format(spent) }}</span></div>
-      <div class="budget-row"><span>Remaining</span><span class="mono in-color" data-testid="budget-remaining">${{ '%.2f'|format(remaining) }}</span></div>
+      <div class="budget-row"><span>Budget</span><span class="mono">₹{{ '%.2f'|format(budget_amount) }}</span></div>
+      <div class="budget-row"><span>Spent</span><span class="mono spent" data-testid="budget-spent">₹{{ '%.2f'|format(spent) }}</span></div>
+      <div class="budget-row"><span>Remaining</span><span class="mono in-color" data-testid="budget-remaining">₹{{ '%.2f'|format(remaining) }}</span></div>
       <div class="progress" data-testid="budget-progress-bar">
         <div class="progress-bar {% if pct > 100 %}over{% elif pct > 80 %}warn{% endif %}"
              style="width: {{ [pct, 100]|min }}%"></div>
       </div>
       <span class="progress-label" data-testid="budget-pct">{{ pct }}% used</span>
       {% if pct > 100 %}
-        <div class="flash flash-error" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><span>You're over budget by ${{ '%.2f'|format(spent - budget_amount) }}</span></div>
+        <div class="flash flash-error" style="margin-top:1rem"><i class="fa-solid fa-triangle-exclamation"></i><span>You're over budget by ₹{{ '%.2f'|format(spent - budget_amount) }}</span></div>
       {% endif %}
     </div>
     {% else %}
