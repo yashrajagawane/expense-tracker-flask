@@ -8,25 +8,57 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11+-c8f45c?style=flat-square&logo=python&logoColor=black)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-3.0-0e1116?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![License](https://img.shields.io/badge/License-MIT-4ade80?style=flat-square)](#license)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-d71f00?style=flat-square&logo=sqlite&logoColor=white)](https://www.sqlalchemy.org/)
+[![License](https://img.shields.io/badge/License-MIT-4ade80?style=flat-square)](#-license)
 [![Status](https://img.shields.io/badge/status-active-fb7185?style=flat-square)](#)
 
-**[🚀 Live Demo](https://your-deployed-url-here.com)** · **[📖 Routes](#-routes)** · **[🗄️ Schema](#️-database-schema)** · **[🤝 Contributing](#-contributing)**
+**[🚀 Live Demo](https://your-deployed-url-here.com)** · **[🖼️ Preview](#-preview)** · **[📖 Routes](#-routes)** · **[🗄️ Schema](#-database-schema)** · **[🤝 Contributing](#-contributing)**
 
 </div>
 
 ---
 
 > [!TIP]
-> **Try it instantly** — no signup needed. Login with `demo@demo.com` / `demo123` on the [live demo](https://your-deployed-url-here.com) and see a fully populated dashboard, charts, and budget in one click.
+> **Try it instantly** — no signup needed. Log in with `demo@demo.com` / `demo123` on the [live demo](https://your-deployed-url-here.com) and see a fully populated dashboard, charts, and budget in one click.
 
-<br>
+## 📑 Table of Contents
+
+- [Preview](#-preview)
+- [Why Ledger?](#why-ledger)
+- [What's Inside](#-whats-inside)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Routes](#-routes)
+- [Database Schema](#-database-schema)
+- [Configuration](#-configuration)
+- [Design Language](#-design-language)
+- [Security](#-security)
+- [Roadmap](#-roadmap)
+- [FAQ](#-faq)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🖼️ Preview
 
 <div align="center">
-<!-- Add a screenshot or GIF here — this is the single highest-impact addition you can make -->
-<!-- ![Dashboard preview](docs/screenshots/dashboard.png) -->
-<i>📸 Screenshot / demo GIF goes here</i>
+
+| Dashboard | Transactions |
+|:---:|:---:|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Transactions](docs/screenshots/transactions.png) |
+| Income, expenses, and balance at a glance, plus budget progress | Full CRUD table with search, filters, and pagination |
+
+| Reports | Budget |
+|:---:|:---:|
+| ![Reports](docs/screenshots/reports.png) | ![Budget](docs/screenshots/budget.png) |
+| Income-vs-expense bar chart and category doughnut chart | Monthly spending cap with color-coded progress |
+
 </div>
+
+> 📸 Drop your own captures into `docs/screenshots/` using the filenames above (recommended: **1280×800px, PNG**) and they'll render automatically here. Good pages to capture: `/dashboard`, `/transactions`, `/reports`, `/budget`.
 
 <br>
 
@@ -96,6 +128,21 @@ Most expense trackers are either bloated SaaS products or bare-bones scripts. Le
 
 <br>
 
+## 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    B[Browser] -->|"HTML forms + fetch()"| F[Flask App<br/>app.py routes]
+    F --> J[Jinja2 Templates<br/>+ static CSS/JS]
+    F --> Auth[Flask-Login session<br/>+ Flask-WTF CSRF]
+    F --> ORM[Flask-SQLAlchemy ORM]
+    ORM --> DB[(SQLite<br/>Postgres/MySQL-ready)]
+```
+
+Everything is server-rendered — no separate frontend build, no API layer to keep in sync. A request comes in, Flask authenticates the session, SQLAlchemy reads/writes the database, and Jinja2 renders the response directly.
+
+<br>
+
 ## 🚀 Quick Start
 
 ```bash
@@ -133,6 +180,8 @@ expense_tracker/
 ├── static/
 │   ├── css/style.css
 │   └── js/main.js
+├── docs/
+│   └── screenshots/           # Drop preview images here (see Preview section)
 └── instance/
     └── expense_tracker.db    # auto-created
 ```
