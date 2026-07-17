@@ -35,10 +35,6 @@
 - [Configuration](#-configuration)
 - [Design Language](#-design-language)
 - [Security](#-security)
-- [Roadmap](#-roadmap)
-- [FAQ](#-faq)
-- [Contributing](#-contributing)
-- [License](#-license)
 
 ---
 
