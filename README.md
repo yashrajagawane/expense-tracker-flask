@@ -1,7 +1,6 @@
 <div align="center">
 
 # 💸 Ledger
-
 ### A personal expense tracker that actually feels good to use
 
 *Flask · SQLite · SQLAlchemy · Chart.js — server-rendered, zero build step, ready in 2 minutes*
