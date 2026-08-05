@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 <div align="center">
 
 # 💸 Ledger
@@ -55,11 +57,15 @@
 
 > 📸 Drop your own captures into `docs/screenshots/` using the filenames above (recommended: **1280×800px, PNG**) and they'll render automatically here. Good pages to capture: `/dashboard`, `/transactions`, `/reports`, `/budget`.
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## Why Ledger?
 
 Most expense trackers are either bloated SaaS products or bare-bones scripts. Ledger sits in between — **a real, full-stack app you can read end to end in ten minutes**, with the polish (dark mode, charts, CSV export) you'd expect from something you'd actually use every day to track your ₹.
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -106,6 +112,8 @@ Most expense trackers are either bloated SaaS products or bare-bones scripts. Le
 </tr>
 </table>
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🧱 Tech Stack
@@ -121,6 +129,8 @@ Most expense trackers are either bloated SaaS products or bare-bones scripts. Le
 | Frontend   | Jinja2 · vanilla JS · Chart.js 4 · Font Awesome 6               |
 | Fonts      | Bricolage Grotesque · Inter · JetBrains Mono                    |
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🏗️ Architecture
@@ -135,6 +145,8 @@ flowchart LR
 ```
 
 Everything is server-rendered — no separate frontend build, no API layer to keep in sync. A request comes in, Flask authenticates the session, SQLAlchemy reads/writes the database, and Jinja2 renders the response directly.
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -152,6 +164,8 @@ python app.py
 ```
 
 Open **http://127.0.0.1:5000** — the database and demo user are created automatically. No migrations, no seed scripts.
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -181,6 +195,8 @@ expense_tracker/
     └── expense_tracker.db    # auto-created
 ```
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🧭 Routes
@@ -201,6 +217,8 @@ expense_tracker/
 | `/profile`                   | GET, POST | Update name/email/password            |
 | `/export.csv`                | GET       | Download all transactions as CSV      |
 | `/health`                    | GET       | JSON health check                     |
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -225,6 +243,8 @@ All child tables cascade-delete with their parent `User`. Full column details:
 
 </details>
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## ⚙️ Configuration
@@ -244,6 +264,8 @@ export DATABASE_URL="postgresql+psycopg://user:pwd@localhost/ledger"
 python app.py
 ```
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🎨 Design Language
@@ -257,6 +279,8 @@ python app.py
 
 Typography pairs **Bricolage Grotesque** for headings, **Inter** for body text, and **JetBrains Mono** for every number on the screen — giving the whole app a fintech feel. Dark mode uses true dark surfaces (not just inverted colors) and persists via `localStorage`.
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🛡️ Security
@@ -267,6 +291,8 @@ Typography pairs **Bricolage Grotesque** for headings, **Inter** for body text, 
 - `SESSION_COOKIE_SAMESITE = "Lax"`
 - Server-side validation of amounts, dates, categories, types
 - ⚠️ Always set a strong `SECRET_KEY` and use HTTPS in production
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -280,6 +306,8 @@ Typography pairs **Bricolage Grotesque** for headings, **Inter** for body text, 
 - [ ] Date-range filter on transactions page
 - [ ] Per-category budgets
 - [ ] PWA (install-to-home-screen)
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
@@ -309,6 +337,8 @@ Yes — search templates for <code>₹</code> and swap it. A per-user currency s
 For a small app with three tables and eight pages, Flask + Jinja renders everything server-side with no build step and no separate frontend — the whole app fits in one readable <code>app.py</code>.
 </details>
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 🤝 Contributing
@@ -319,11 +349,15 @@ For a small app with three tables and eight pages, Flask + Jinja renders everyth
 4. Add/update tests for new logic
 5. Open a PR
 
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
+
 <br>
 
 ## 📄 License
 
 Released under the **MIT License** — do whatever you want, just don't blame the author if you accidentally track your rupees a bit too accurately. 🙃
+
+<p align="right"><a href="#readme-top">back to top ⬆️</a></p>
 
 <br>
 
